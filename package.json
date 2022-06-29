@@ -2,7 +2,7 @@
   "name": "-",
   "workspaces": [
     "packages/*",
-    "packages/examples/*"
+    "examples/*"
   ],
   "private": true
 }
