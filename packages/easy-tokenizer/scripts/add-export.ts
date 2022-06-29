@@ -1,5 +1,5 @@
 import * as fs from "node:fs/promises";
-import { join } from "node:path";
+import { dirname, join } from "node:path";
 import { join as joinPosix } from "node:path/posix";
 
 const [_0, _1, filename, distpath, debug] = process.argv;
@@ -7,17 +7,17 @@ const [_0, _1, filename, distpath, debug] = process.argv;
 export async function addExport(
   basePath: string,
   filename: string,
-  distpath: string,
+  outpath: string,
   debug: boolean
 ) {
-  const log: typeof console.log = debug
-    ? (...args) => console.log("[Debug]", ...args)
-    : () => {};
+  const log: typeof console.log = (...args) =>
+    console.log("\x1b[35m[Add-Export]\x1b[0m", ...args);
 
   async function writeFile(ext: string, content: string) {
     log(`Writing file (${ext})...`);
     try {
       log(filename + "." + ext);
+      await fs.rm(join(basePath, filename + "." + ext), { force: true });
       await fs.writeFile(join(basePath, filename + "." + ext), content);
     } catch (err) {
       if (!(err instanceof Error)) return console.error(err);
@@ -31,12 +31,24 @@ export async function addExport(
     console.log(`\x1b[33m - Done ${filename + "." + ext}\x1b[0m`);
   }
 
-  const relPath = joinPosix("./dist-dev/", distpath);
+  const distPath = joinPosix("dist-dev", outpath);
+  const srcPath = joinPosix("src", outpath);
+
+  const declarationFile = (await fs.readFile(distPath + ".d.ts")).toString();
+  const sourceFile = (await fs.readFile(srcPath + ".ts")).toString();
+  const declaration = declarationFile.replace(
+    /\.\//g,
+    "./" + dirname(distPath) + "/"
+  );
+  const source = sourceFile.replace(
+    /\.\//g,
+    "./" + dirname(distPath) + "/"
+  );
+
   await Promise.all([
-    writeFile("d.ts", `export * from "${relPath}";`),
-    writeFile("js", `module.exports = require("${relPath}")`),
-    writeFile("cjs", `module.exports = require("${relPath}")`),
-    writeFile("mjs", `export * from "${relPath}";`),
+    writeFile("ts", `export * from "${srcPath}";`),
+    writeFile("d.ts", declaration),
+    writeFile("js", source),
   ]);
 
   console.log(`\x1b[32mDone ${filename}!\x1b[0m`);
