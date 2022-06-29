@@ -1,14 +1,14 @@
 {
   "name": "easy-tokenizer",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "A simple powerful tokenizer.",
   "main": "index.cjs",
   "files": [
     "index.*",
     "basic.*",
-    "dist-dev/",
-    "scripts/add-export.ts",
-    "scripts/all-exports.ts"
+    "client.*",
+    "user-helpers.*",
+    "dist-dev/"
   ],
   "exports": {
     ".": {
@@ -36,14 +36,13 @@
   "scripts": {
     "build:clear": "rm -rf ./dist-dev",
     "build:fix": "mv ./dist-dev/src/* ./dist-dev/ && rm -rf ./dist-dev/src/ && npm run use-swc && npx ef-tspm --tsconfig ./tsconfig.build.json ",
-    "build": "npm run build:clear && tsc -p ./tsconfig.build.json && npm run build:fix",
+    "build:build": "tsc -p ./tsconfig.build.json && npm run inter:all-exports",
+    "build": "npm run build:clear && npm run build:build && npm run build:fix",
     "test": "ts-mocha -p ./tsconfig.build.json --paths test/**/*.ts --exclude test/**/_*.ts",
     "test:unit": "ts-mocha -p ./tsconfig.build.json --paths src/**/*.test.ts",
     "prepublishOnly": "npm run build",
-    "postinstall": "npm run inter:all-exports",
-    "all-exports": "npm run inter:all-exports",
     "use-swc": "npm run inter:use-swc",
-    "inter:tsnode": "ts-node -O '{\"esModuleInterop\":true,\"module\":\"CommonJS\"}'",
+    "inter:tsnode": "ts-node",
     "inter:ex-node": "ts-node -P ./tsconfig.build.json -r tsconfig-paths/register",
     "inter:add-export": "npm run inter:tsnode -- scripts/add-export.ts",
     "inter:all-exports": "npm run inter:tsnode -- scripts/all-exports.ts",

@@ -20,8 +20,10 @@ export async function addExport(
       log(filename + "." + ext);
       await fs.writeFile(join(basePath, filename + "." + ext), content);
     } catch (err) {
+      if (!(err instanceof Error)) return console.error(err);
+      const _err = err as Error;
       console.log(
-        `\x1b[31mError writing file (${ext}): ${err.name}: ${err.message}\x1b[0m`
+        `\x1b[31mError writing file (${ext}): ${_err.name}: ${_err.message}\x1b[0m`
       );
     }
     log(`File written (${ext}).`);
