@@ -1,0 +1,70 @@
+{
+  "name": "easy-tokenizer",
+  "version": "1.0.0",
+  "description": "A simple powerful tokenizer.",
+  "main": "index.cjs",
+  "files": [
+    "index.*",
+    "basic.*",
+    "dist-dev/"
+  ],
+  "exports": {
+    ".": {
+      "require": "./index.cjs",
+      "import": "./index.mjs",
+      "default": "./index.js"
+    },
+    "./basic": {
+      "require": "./basic.cjs",
+      "import": "./basic.mjs",
+      "default": "./basic.js"
+    },
+    "./user-helpers": {
+      "require": "./user-helpers.cjs",
+      "import": "./user-helpers.mjs",
+      "default": "./user-helpers.js"
+    },
+    "./client": {
+      "require": "./client.cjs",
+      "import": "./client.mjs",
+      "default": "./client.js"
+    },
+    "./*": "./*"
+  },
+  "scripts": {
+    "build:clear": "rm -rf ./dist-dev",
+    "build:fix": "mv ./dist-dev/src/* ./dist-dev/ && rm -rf ./dist-dev/src/ && npm run use-swc && npx ef-tspm --tsconfig ./tsconfig.build.json ",
+    "build": "npm run build:clear && tsc -p ./tsconfig.build.json && npm run build:fix",
+    
+    "test": "ts-mocha -p ./tsconfig.build.json --paths test/**/*.ts --exclude test/**/_*.ts",
+    "test:unit": "ts-mocha -p ./tsconfig.build.json --paths src/**/*.test.ts",
+    
+    "prepublishOnly": "npm run build",
+    "postinstall": "npm run inter:all-exports",
+    "all-exports": "npm run inter:all-exports",
+    "use-swc": "npm run inter:use-swc",
+
+    "inter:ex-node": "ts-node -P ./tsconfig.build.json -r tsconfig-paths/register",
+    "inter:add-export": "ts-node scripts/add-export.ts",
+    "inter:all-exports": "ts-node scripts/all-exports.ts",
+    "inter:use-swc": "ts-node scripts/use-swc.ts"
+  },
+  "author": "Apika Luca",
+  "devDependencies": {
+    "@ef-carbon/tspm": "^2.2.5",
+    "@swc/cli": "^0.1.57",
+    "@swc/core": "^1.2.206",
+    "@types/chai": "^4.3.1",
+    "@types/mocha": "^9.1.1",
+    "@types/node": "^18.0.0",
+    "chai": "^4.3.6",
+    "mocha": "^10.0.0",
+    "ts-mocha": "^10.0.0",
+    "tsconfig-paths": "^4.0.0",
+    "typescript": "^4.7.3"
+  },
+  "dependencies": {
+    "tslib": "^2.4.0"
+  },
+  "license": "MIT"
+}

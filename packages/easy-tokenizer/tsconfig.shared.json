@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    /* Language and Environment */
+    "target": "ES2020",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+
+    /* Modules */
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "baseUrl": "./",
+    "paths": {
+      "@": ["src/index"],
+      "@/*": ["src/*"],
+
+      "@advice": ["src/advice/index.ts"],
+      "@advice/*": ["src/advice/*"],
+
+      "@basic": ["src/basic/index.ts"],
+      "@basic/*": ["src/basic/*"],
+
+      "@client": ["src/client/index.ts"],
+      "@client/*": ["src/client/*"],
+
+      "@Token": ["src/Token/index.ts"],
+      "@Token/*": ["src/Token/*"],
+
+      "@Tokenizer": ["src/Tokenizer/index.ts"],
+      "@Tokenizer/*": ["src/Tokenizer/*"],
+
+      "@user-helpers": ["src/user-helpers/index.ts"],
+      "@user-helpers/*": ["src/user-helpers/*"]
+    },
+    "resolveJsonModule": true
+  }
+}
