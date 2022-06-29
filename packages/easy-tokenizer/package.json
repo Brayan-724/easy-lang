@@ -1,12 +1,14 @@
 {
   "name": "easy-tokenizer",
-  "version": "1.0.0",
+  "version": "1.0.5",
   "description": "A simple powerful tokenizer.",
   "main": "index.cjs",
   "files": [
     "index.*",
     "basic.*",
-    "dist-dev/"
+    "dist-dev/",
+    "scripts/add-export.ts",
+    "scripts/all-exports.ts"
   ],
   "exports": {
     ".": {
@@ -35,19 +37,17 @@
     "build:clear": "rm -rf ./dist-dev",
     "build:fix": "mv ./dist-dev/src/* ./dist-dev/ && rm -rf ./dist-dev/src/ && npm run use-swc && npx ef-tspm --tsconfig ./tsconfig.build.json ",
     "build": "npm run build:clear && tsc -p ./tsconfig.build.json && npm run build:fix",
-    
     "test": "ts-mocha -p ./tsconfig.build.json --paths test/**/*.ts --exclude test/**/_*.ts",
     "test:unit": "ts-mocha -p ./tsconfig.build.json --paths src/**/*.test.ts",
-    
     "prepublishOnly": "npm run build",
     "postinstall": "npm run inter:all-exports",
     "all-exports": "npm run inter:all-exports",
     "use-swc": "npm run inter:use-swc",
-
+    "inter:tsnode": "ts-node -O '{\"esModuleInterop\":true,\"module\":\"CommonJS\"}'",
     "inter:ex-node": "ts-node -P ./tsconfig.build.json -r tsconfig-paths/register",
-    "inter:add-export": "ts-node scripts/add-export.ts",
-    "inter:all-exports": "ts-node scripts/all-exports.ts",
-    "inter:use-swc": "ts-node scripts/use-swc.ts"
+    "inter:add-export": "npm run inter:tsnode -- scripts/add-export.ts",
+    "inter:all-exports": "npm run inter:tsnode -- scripts/all-exports.ts",
+    "inter:use-swc": "npm run inter:tsnode -- scripts/use-swc.ts"
   },
   "author": "Apika Luca",
   "devDependencies": {
