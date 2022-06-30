@@ -15,7 +15,7 @@
     "build:clear": "rm -rf ./dist-dev",
     "build:mv": "mv ./dist-dev/src/* ./dist-dev/",
     "build:fix": "rm -rf ./dist-dev/src/ && npm run use-swc && npx ef-tspm --tsconfig ./tsconfig.build.json ",
-    "build:build": "tsc -p ./tsconfig.build.json",
+    "build:build": "tsc -p ./tsconfig.build.json && npm run inter:all-exports",
     "build": "npm run build:clear && npm run build:build && npm run build:mv && npm run build:fix",
     "test": "ts-mocha -p ./tsconfig.build.json --paths test/**/*.ts --exclude test/**/_*.ts",
     "test:unit": "ts-mocha -p ./tsconfig.build.json --paths src/**/*.test.ts",

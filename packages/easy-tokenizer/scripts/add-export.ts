@@ -11,12 +11,12 @@ export async function addExport(
   debug: boolean
 ) {
   const log: typeof console.log = (...args) =>
-    console.log("\x1b[35m[Add-Export]\x1b[0m", ...args);
+    console.log( `\x1b[35m[Add-Export ${filename}]\x1b[0m`, ...args);
 
   async function writeFile(ext: string, content: string) {
     log(`Writing file (${ext})...`);
     try {
-      log(filename + "." + ext);
+      // log(filename + "." + ext);
       await fs.rm(join(basePath, filename + "." + ext), { force: true });
       await fs.writeFile(join(basePath, filename + "." + ext), content);
     } catch (err) {
@@ -26,7 +26,7 @@ export async function addExport(
         `\x1b[31mError writing file (${ext}): ${_err.name}: ${_err.message}\x1b[0m`
       );
     }
-    log(`File written (${ext}).`);
+    // log(`File written (${ext}).`);
 
     console.log(`\x1b[33m - Done ${filename + "." + ext}\x1b[0m`);
   }
@@ -35,7 +35,7 @@ export async function addExport(
   const srcPath = joinPosix("src", outpath);
 
   const declarationFile = (await fs.readFile(distPath + ".d.ts")).toString();
-  const sourceFile = (await fs.readFile(srcPath + ".ts")).toString();
+  const sourceFile = (await fs.readFile(distPath + ".js")).toString();
   const declaration = declarationFile.replace(
     /\.\//g,
     "./" + dirname(distPath) + "/"
@@ -46,7 +46,7 @@ export async function addExport(
   );
 
   await Promise.all([
-    writeFile("ts", `export * from "${srcPath}";`),
+    // writeFile("ts", `export * from "${srcPath}";`),
     writeFile("d.ts", declaration),
     writeFile("js", source),
   ]);

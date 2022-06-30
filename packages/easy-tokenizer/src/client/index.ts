@@ -1,7 +1,17 @@
-export * from "./TokenFactory";
-export * from "./FactoredTokenFactory";
+export { TokenFactory } from "./TokenFactory";
+export { FactoredTokenFactory } from "./FactoredTokenFactory";
 
-export * from "./createKeywordTokens";
-export * from "./createSimpleTokens";
-export * from "./createTokenClass";
-export * from "./TokenizerTriggerBuilder";
+export { createKeywordsTokens } from "./createKeywordTokens";
+export {
+  SimpleToken,
+  SimpleTokenMap,
+  SimpleTokensOptions,
+  createSimpleToken,
+  createSimpleTokenFactory,
+} from "./createSimpleTokens";
+export { createTokenClass } from "./createTokenClass";
+export {
+  TokenizerTrigger,
+  TokenizerTriggerBuilder,
+  TokenizerTriggerFunc,
+} from "./TokenizerTriggerBuilder";

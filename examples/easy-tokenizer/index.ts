@@ -1,13 +1,19 @@
-import { TokenEnum } from "easy-tokenizer";
+import {
+  TokenEnum,
+  TokenTypeEnum,
+  Tokenizer,
+  createKeywordsTokens,
+} from "easy-tokenizer";
 import {
   BraceTokenFactory,
   BracketTokenFactory,
   NumberTokenFactory,
   ParenTokenFactory,
   PlusTokenFactory,
-  StarTokenFactory, 
+  StarTokenFactory,
+  IdentTokenFactory,
+  StringTokenFactory,
 } from "easy-tokenizer/basic";
-import {createKeywordsTokens} from "easy-tokenizer/client";
 
 const keywords = ["fn", "if", "else", "return", "log", "debug"];
 const [KeywordToken, KeywordTokenFactory] = createKeywordsTokens(
