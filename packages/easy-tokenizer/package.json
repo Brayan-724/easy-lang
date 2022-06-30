@@ -1,9 +1,9 @@
 {
   "name": "easy-tokenizer",
-  "version": "1.0.6",
+  "version": "1.1.0",
   "description": "A simple powerful tokenizer.",
   "main": "index.js",
-  "types": "index.d.ts",
+  "types": "./",
   "files": [
     "index.*",
     "basic.*",
@@ -11,9 +11,6 @@
     "user-helpers.*",
     "dist-dev/"
   ],
-  "exports": {
-    "./*": "./*"
-  },
   "scripts": {
     "build:clear": "rm -rf ./dist-dev",
     "build:mv": "mv ./dist-dev/src/* ./dist-dev/",
@@ -46,5 +43,9 @@
   "dependencies": {
     "tslib": "^2.4.0"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Brayan-724/easy-lang/tree/main/packages/easy-tokenizer"
+  }
 }
