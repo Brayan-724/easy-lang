@@ -3,8 +3,8 @@ import {addExport} from "./add-export";
 
 const [_, binPath, debug] = process.argv;
 
-const allExports: Record<string, string> = {
-  index: "index",
+const allExports: Record<string, string[]> = {
+  index: ["index"],
 };
 
 async function main() {

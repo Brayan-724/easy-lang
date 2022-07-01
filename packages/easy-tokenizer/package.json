@@ -41,7 +41,8 @@
     "typescript": "^4.7.3"
   },
   "dependencies": {
-    "tslib": "^2.4.0"
+    "tslib": "^2.4.0",
+    "@apika_luca/easy-lang-commons": "*"
   },
   "license": "MIT",
   "repository": {

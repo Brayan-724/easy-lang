@@ -1,9 +1,9 @@
 {
-  "name": "@apika_luca/easy-tokenizer-example",
+  "name": "@apika_luca/easy-sintaxer-example",
   "version": "0.0.1",
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
-    "easy-tokenizer": "*"
+    "easy-sintaxer": "*"
   }
 }
