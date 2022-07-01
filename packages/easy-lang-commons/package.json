@@ -1,6 +1,6 @@
 {
   "name": "@apika_luca/easy-lang-commons",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "main": "./dist-dev/index.js",
   "types": "./dist-dev",
   "repository": "https://github.com/Brayan-724/easy-lang/tree/main/packages/easy-lang-commons",
@@ -8,9 +8,9 @@
   "license": "MIT",
   "private": false,
   "dependencies": {
-    "tslib": "^2.4.0",
+    "@apika_luca/easy-lang-commons": "*",
     "easy-tokenizer": "*",
-    "@apika_luca/easy-lang-commons": "*"
+    "tslib": "^2.4.0"
   },
   "devDependencies": {
     "@ef-carbon/tspm": "^2.2.5",
@@ -24,6 +24,10 @@
     "tsconfig-paths": "^4.0.0",
     "typescript": "^4.7.4"
   },
+  "files": [
+    "index.*",
+    "dist-dev/"
+  ],
   "scripts": {
     "build:clear": "rm -rf ./dist-dev",
     "build:mv": "mv ./dist-dev/src/* ./dist-dev/ && rm -rf ./dist-dev/src/",
