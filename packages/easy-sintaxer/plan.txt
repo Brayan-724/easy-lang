@@ -1,0 +1,65 @@
+--------------------------------------------------------------------------------
+  Definition
+--------------------------------------------------------------------------------
+
+Sintaxer: SintaxerBuilder
+  -> tokens: TokenFactory[] 
+  -> outTokens: Token[]
+  -> rules: SintaxRule[]
+  ---------
+  -> registerToken(token: TokenFactory): void
+  -> registerRule(rule: SintaxRule): this
+  -> run(): Sintaxed[] | SintaxError
+
+SintaxRule: SintaxRuleBuilder
+  -> cases: SintaxCase[]
+  ---------
+  -> run(tokens: Token[]): Sintaxed[] | SintaxError | false
+
+SintaxCase: SintaxCaseBuilder
+  -> parts: SintaxPart[]
+  ---------
+  -> run(tokens: Token[]): Sintaxed[] | SintaxError | false 
+
+SintaxPart
+  -> type: string
+  -> name: string
+  -> extra: object
+
+--------------------------------------------------------------------------------
+  Rule Schema
+--------------------------------------------------------------------------------
+
+CASES: 
+  - PART: [TYPE:NAME]
+  - PART: [TYPE:NAME:EXTRA] PART: [TYPE:NAME]
+  ...
+
+CASE = A PART collection
+PART = A definition of a part in the CASE
+TYPE = The type of PART
+NAME = The name of PART
+EXTRA = Extra information about PART
+  -> Maybe a object (customMeta)
+  -> string (value)
+
+
+--------------------------------------------------------------------------------
+  Rule Examples
+--------------------------------------------------------------------------------
+
+# Rule --- Adding
+[Rule:Expr] [Token:Plus] [Rule:Expr]
+
+# Rule --- Expr
+[Token:Paren {state:0}] [Rule:Expr] [Token:Paren {state:1}]
+[Rule:Value]
+[Rule:Ident]
+[Rule:Adding]
+
+# Rule --- Value
+[Token:Number]
+[Token:String]
+
+# Rule --- Ident
+[Token:Ident]

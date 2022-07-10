@@ -6,7 +6,7 @@ export abstract class FactoredTokenFactory<
   TK extends Token = Token
 > extends TokenFactory<TK> {
   constructor(
-    public override readonly tokenName: string,
+    tokenName: string,
     public override readonly tokenClass: Newable<TK>
   ) {
     super(tokenClass);

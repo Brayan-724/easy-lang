@@ -25,6 +25,10 @@ export abstract class TokenFactory<TK extends Token = Token>
     this.token = tokenInstance.token as GetTokenEnum<TK>;
     this.tokenType = tokenInstance.tokenType as GetTokenTypeEnum<TK>;
   }
+  
+  createFake(): TK {
+    return new this.tokenClass("", {}, {});
+  }
 
   create(
     value: string,
